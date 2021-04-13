@@ -6,6 +6,10 @@ import Footer from "./components/Footer";
 
 export default class App extends Component {
 
+    // 状态在哪里，操作状态的方法就在哪里  比如：addTodo   updateTodo 函数
+
+
+
     // 初始化状态
     state = {
         todos: [
@@ -24,8 +28,30 @@ export default class App extends Component {
         const newTodos = [todoObj, ...todos]
         //更新状态
         this.setState({todos: newTodos})
+    }
+
+
+    // 用于更新一个todo 对象
+    updateTodo=(id,down)=>{
+        //获取状态中的todos
+        const {todos}=this.state
+
+        //匹配处理数据
+      const newTodos=  todos.map((todoObj)=>{
+            if(todoObj.id==id){
+                return {...todoObj,down}
+            }else {
+                return todoObj;
+            }
+        })
+
+        this.setState(newTodos)
+
 
     }
+
+
+
 
     render() {
 
@@ -34,7 +60,7 @@ export default class App extends Component {
             <div className="todo-container">
                 <div className="todo-wrap">
                     <Header addTodo={this.addTodo}/>
-                    <List todos={todos}/>
+                    <List todos={todos} updateTodo={this.updateTodo}/>
                     <Footer c={3}/>
                 </div>
             </div>

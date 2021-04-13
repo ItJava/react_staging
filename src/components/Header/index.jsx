@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ProTypes from 'prop-types'
 import './index.css'
 import  {nanoid} from "nanoid";
 
@@ -7,6 +8,12 @@ console.log(nanoid())
 console.log(nanoid())
 console.log(nanoid())
 export default class Header extends Component {
+
+
+    // 对接收的props 进行：类型、必要性的限制
+    static propTypes={
+        addTodo:ProTypes.func.isRequired
+    }
 
 
     //绑定事件的元素和要操作的元素是同一个元素，就没有必要用ref 了  借助事件对象
