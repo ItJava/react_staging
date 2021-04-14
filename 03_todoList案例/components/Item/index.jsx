@@ -23,6 +23,18 @@ export default class Item extends Component {
         }
 
     }
+    //删除操作
+    handleDelete=(id)=>{
+       /* return (event)=>{
+            console.log(id,event.target.checked)
+            this.props.updateTodo(id,event.target.checked)
+        }*/
+        console.log('通知删除:'+id)
+        if(window.confirm('确定删除吗！')){
+            this.props.deleteTodo(id)
+        }
+
+    }
 
     render() {
         const  {id,name,done}=this.props
@@ -31,10 +43,13 @@ export default class Item extends Component {
             <div>
                 <li style={{backgroundColor:mouse?'#ddd':'white'}} onMouseLeave={this.handleMouse(false)} onMouseEnter={this.handleMouse(true)}>
                     <label>
-                        <input type="checkbox" defaultChecked={done} onChange={this.handleCeck(id)}/>
+                        <input type="checkbox" checked={done} onChange={this.handleCeck(id)}/>
                         <span>{name}{id} </span>
                     </label>
-                    <button className="btn btn-danger" style={{display:mouse?'block':'none'}}>删除</button>
+                    {/* onClick 是需要指定一个回调的，要么高阶函数实现，要么直接写一个回调函数
+                    ()=>{}  react 发生点击的时候，调用的其实是前面 () 函数
+                    */}
+                    <button onClick={()=>this.handleDelete(id)} className="btn btn-danger" style={{display:mouse?'block':'none'}}>删除</button>
                 </li>
             </div>
         );
