@@ -1,0 +1,8 @@
+
+路由的基本使用：
+- 明确界面中的导航区、展示区
+- 导航区的a标签改为 Link 标签
+   <Link to='/***'>Demo</Link>
+- 展示区写Route标签进行路径的匹配
+  <Route path'/***' component={Demo}/>
+- <App> 的最外侧报过了一个<BrowserRouter>或<HashRouter>
