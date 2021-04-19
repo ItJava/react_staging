@@ -3,8 +3,6 @@ import Message from "./Message";
 import News from "./News";
 import MyNavLink from "../../component/MyNavLink";
 import {Redirect, Route, Switch} from "react-router-dom";
-import About from "../About";
-
 
 export default class Home extends Component {
     render() {
