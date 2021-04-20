@@ -1,0 +1,92 @@
+
+# 路由的基本使用：
+- 明确界面中的导航区、展示区
+- 导航区的a标签改为 Link 标签
+   <Link to='/***'>Demo</Link>
+- 展示区写Route标签进行路径的匹配
+  <Route path'/***' component={Demo}/>
+- <App> 的最外侧报过了一个<BrowserRouter>或<HashRouter>
+
+# 路由组件和一般组件区别
+  -  写法不同
+     一般组件：<Demo/>
+     路由组件：<Route path='/demo' component={Demo}/>
+     
+  -  存放位置不同：
+     一般组件：components
+     路由组件：pages
+  
+  -  接收到的props不同：
+     一般组件：写组件标签时传递了什么，就能够收到什么
+     路由组件：接收到三个固定的属性
+     history:
+            go: ƒ go(n)
+            goBack: ƒ goBack()
+            goForward: ƒ goForward()
+            push: ƒ push(path, state)
+            replace: ƒ replace(path, state)
+     location:
+           pathname: "/about"
+           search: ""
+           state: undefined
+     match:
+           params: {}
+           path: "/about"
+           url: "/about"
+           
+# NavLink 与 封装MyNavLink  
+   - NavLink 可以实现路由链接的高亮，通过activeClassName 指定样式名
+   - 标签体内容是一个特殊的标签属性
+   - 通过this.props.children可以获取标签体内容
+
+# Switch 的使用
+   - 通常情况下，path和component 是一一对应的关系
+   - Switch可以提高路由配对效率（单一配对）
+
+# 解决多级路由路径刷新页面样式丢失问题
+   - public/index.html 中 引入样式时 不写 ./ 写 / (常用)
+   - public/index.html 中 引入样式时不写 ./  写 %PUBLIC_URL% (常用)
+   - 使用HashRouter
+
+# Redirect的使用
+   - 一般卸载所有路由注册的最下方，当所有路由都无法匹配时,跳转到Redirect指定的路由
+   - 具体编码：
+     {/* 注册路由  */}
+     <Switch>
+        <Route path='/home' component={Home}/>
+        <Route path='/about' component={About}/>
+        <Redirect to={"/about"}/>
+     </Switch>
+
+# 嵌套路由
+   - 注册子路由时要写父路由的path值
+   - 路由的匹配时按照注册路由的顺序进行的
+
+# 向路由组件传递参数
+  - params 参数
+      路由链接（携带参数）：{`/home/message/detail/${msgObj.id}/${msgObj.title}`}
+      注册路由（声明参数）：'/home/message/detail/:id/:title'
+      接收参数：const {id,title}=this.props.match.params
+  - search 参数
+      路由链接（携带参数）：<Link to={`/home/message/detail/?id=${msgObj.id}&title=${msgObj.title}`}
+      注册路由（无需声明，正常注册即可）：<Route path='/home/message/detail' component={Detail}/>
+      接收参数：      const {search}=this.props.location
+                    const result=qs.parse(search.slice(1))
+                    console.log('result',result)
+                    const {id,title}=qs.parse(search.slice(1))
+                    console.log('id-title',{id}+' '+{title})
+                    注意：获取的到的search 是urlencoded编码字符串，需要借助querystring解析
+  - state 参数
+      路由链接（携带参数）：<Link to={{pathname:`/home/message/detail/`,state:{id:msgObj.id,title:msgObj.title}}}
+      注册路由（无需声明，正常注册即可）：<Route path='/home/message/detail' component={Detail}/>
+      接收参数：      const {id,title}=this.props.location.state
+      注意：获取的到的state  刷新也是可以保留住参数
+
+
+  - 编程式路由导航
+        借助this.prop.history对象上的API对操作路由跳转、前进、后退
+           -this.props.history push()
+           -this.props.history replace()
+           -this.props.history goBack()
+           -this.props.history goForward()
+           -this.props.history go()

@@ -15,11 +15,11 @@ export default class Home extends Component {
                     <ul className="nav nav-tabs">
 
                         <li>
-                            <MyNavLink  to='/home/news'>News</MyNavLink>
+                            <MyNavLink replace={true} to='/home/news'>News</MyNavLink>
 
                         </li>
                         <li>
-                            <MyNavLink  to='/home/message'>Message</MyNavLink>
+                            <MyNavLink replace={true} to='/home/message'>Message</MyNavLink>
                         </li>
 
                     </ul>
