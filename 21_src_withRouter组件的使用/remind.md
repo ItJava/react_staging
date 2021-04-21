@@ -83,24 +83,4 @@
       注意：获取的到的state  刷新也是可以保留住参数
 
 
-  - 编程式路由导航
-        借助this.prop.history对象上的API对操作路由跳转、前进、后退
-           -this.props.history push()
-           -this.props.history replace()
-           -this.props.history goBack()
-           -this.props.history goForward()
-           -this.props.history go()
-
-
-# BrowserRouter与HashRouter的区别
-- 底层原理不一样：
-  BrowserRouter使用的是H5的history API,不兼容IE9及以下的版本。
-  HashRouter使用的是URL的哈希值
-- url 表现形式不一样
-  BrowserRouter的路径中没有#，例如：localhost:3000/demo/test
-  HashRouter路径包含#，例如：localhost:3000/#/demo/test
-- 刷新后对路由state参数的影响     ！！！！！！    
-  BrowserRouter没有任何影响，因为state保存在history对象中
-  HashRouter刷新后会导致路由state 丢失
-- 备注：HashRouter可以解决一些路径错误相关的问题  
 
